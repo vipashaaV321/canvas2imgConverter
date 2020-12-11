@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <title>Canvas2Img</title>
+</head>
+
+<body>
+    <div class="container my-5 py-5">
+
+
+        <!--Section: Content-->
+        <section class="dark-grey-text text-center">
+
+            <h3 class="font-weight-bold pt-4 mb-4">Canvas to Image Convertor</h3>
+            <button type="button" id="btnDisplay" class="btn btn-orange btn-rounded mx-0">Display</button>
+            <button type="button" id="btnDownload" class="btn btn-orange btn-rounded mx-0">Download</button>
+            <div class="row mx-lg-5 mx-md-3 ">
+                <div class="col-md-6 mb-4 p-4">
+
+                    <div class="view mb-5 mx-auto">
+                        <canvas id="myCanvas" width="320" height="300"
+                            style="border:2px solid #000;float: left;"></canvas>
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-6 mb-4 p-4">
+
+                    <div class="view mb-5 ">
+                        <img src="" id="imgConverted" class="img-fluid mx-auto" width="320" height="300" style="float: left;">
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </section>
+        <!--Section: Content-->
+
+
+    </div>
+
+    <!-- <canvas id="myCanvas" width="300" height="300" style="border:2px solid #000;float: left;"></canvas>
+    <img src="" id="imgConverted" style="float: left;margin-left: 2px;" /> -->
+
+    <script>
+        const btnDisplay = document.querySelector("#btnDisplay");
+        const btnDownload = document.querySelector("#btnDownload");
+        const imgConverted = document.querySelector("#imgConverted");
+        const myCanvas = document.querySelector("#myCanvas");
+        const ctx = myCanvas.getContext('2d');
+
+        ctx.font = "50px Roboto";
+        ctx.fillStyle = 'blue';
+        ctx.fillText("vipashaa", 70, 150)
+
+        btnDisplay.addEventListener("click", function () {
+            const dataURI = myCanvas.toDataURL("image/jpeg");
+            imgConverted.src = dataURI
+        })
+        btnDownload.addEventListener("click", function () {
+            console.log("download")
+            if (window.navigator.msSaveBlob) {
+                window.navigator.msSaveBlob(myCanvas.msToBlob(), "canvas-img.png");
+            } else {
+                const a = document.createElement("a");
+                document.body.appendChild(a);
+                a.href = myCanvas.toDataURL();
+                a.download = "canvas-img.png";
+                a.click()
+                document.body.removeChild(a)
+
+            }
+        })
+    </script>
+</body>
+
+</html>
